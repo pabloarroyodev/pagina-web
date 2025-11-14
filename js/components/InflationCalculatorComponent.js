@@ -41,8 +41,15 @@ export class InflationCalculatorComponent {
     init() {
         this.populateSelectOptions();
         this.setupEventListeners();
-        this.calculateInflation(); // Cálculo inicial
-        this.compareValues(); // Comparación inicial
+
+        // Solo ejecutar cálculos iniciales si existen los elementos necesarios
+        if (this.startAmount && this.startYear && this.startMonth && this.endYear && this.endMonth) {
+            this.calculateInflation();
+        }
+
+        if (this.amount1 && this.amount2 && this.year1 && this.year2 && this.month1 && this.month2) {
+            this.compareValues();
+        }
     }
 
     /**
@@ -64,37 +71,45 @@ export class InflationCalculatorComponent {
             lastMonth++;
         }
 
-        // Selectores de la primera calculadora
-        populateSelect(this.startYear, years.map(year => ({ value: year, text: year })), years[years.length - 1]);
-        populateSelect(this.startMonth, MONTHS, 1);
-        populateSelect(this.endYear, years.map(year => ({ value: year, text: year })), lastYear);
-        populateSelect(this.endMonth, MONTHS, lastMonth);
+        // Selectores de la primera calculadora (si existen en la página)
+        if (this.startYear && this.startMonth && this.endYear && this.endMonth) {
+            populateSelect(this.startYear, years.map(year => ({ value: year, text: year })), years[years.length - 1]);
+            populateSelect(this.startMonth, MONTHS, 1);
+            populateSelect(this.endYear, years.map(year => ({ value: year, text: year })), lastYear);
+            populateSelect(this.endMonth, MONTHS, lastMonth);
+        }
 
-        // Selectores de la segunda calculadora
-        populateSelect(this.year1, years.map(year => ({ value: year, text: year })), years[years.length - 1]);
-        populateSelect(this.month1, MONTHS, 1);
-        populateSelect(this.year2, years.map(year => ({ value: year, text: year })), lastYear);
-        populateSelect(this.month2, MONTHS, lastMonth);
+        // Selectores de la segunda calculadora (si existen en la página)
+        if (this.year1 && this.month1 && this.year2 && this.month2) {
+            populateSelect(this.year1, years.map(year => ({ value: year, text: year })), years[years.length - 1]);
+            populateSelect(this.month1, MONTHS, 1);
+            populateSelect(this.year2, years.map(year => ({ value: year, text: year })), lastYear);
+            populateSelect(this.month2, MONTHS, lastMonth);
+        }
     }
 
     /**
      * Configura los event listeners
      */
     setupEventListeners() {
-        // Event listeners para la calculadora de inflación
-        this.startAmount.addEventListener('input', () => this.calculateInflation());
-        this.startYear.addEventListener('change', () => this.calculateInflation());
-        this.startMonth.addEventListener('change', () => this.calculateInflation());
-        this.endYear.addEventListener('change', () => this.calculateInflation());
-        this.endMonth.addEventListener('change', () => this.calculateInflation());
+        // Event listeners para la calculadora de inflación (si existen elementos)
+        if (this.startAmount && this.startYear && this.startMonth && this.endYear && this.endMonth) {
+            this.startAmount.addEventListener('input', () => this.calculateInflation());
+            this.startYear.addEventListener('change', () => this.calculateInflation());
+            this.startMonth.addEventListener('change', () => this.calculateInflation());
+            this.endYear.addEventListener('change', () => this.calculateInflation());
+            this.endMonth.addEventListener('change', () => this.calculateInflation());
+        }
 
-        // Event listeners para la comparación de precios
-        this.amount1.addEventListener('input', () => this.compareValues());
-        this.year1.addEventListener('change', () => this.compareValues());
-        this.month1.addEventListener('change', () => this.compareValues());
-        this.amount2.addEventListener('input', () => this.compareValues());
-        this.year2.addEventListener('change', () => this.compareValues());
-        this.month2.addEventListener('change', () => this.compareValues());
+        // Event listeners para la comparación de precios (si existen elementos)
+        if (this.amount1 && this.amount2 && this.year1 && this.year2 && this.month1 && this.month2) {
+            this.amount1.addEventListener('input', () => this.compareValues());
+            this.year1.addEventListener('change', () => this.compareValues());
+            this.month1.addEventListener('change', () => this.compareValues());
+            this.amount2.addEventListener('input', () => this.compareValues());
+            this.year2.addEventListener('change', () => this.compareValues());
+            this.month2.addEventListener('change', () => this.compareValues());
+        }
     }
 
     /**

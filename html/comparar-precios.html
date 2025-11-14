@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar precios ajustados por inflación</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/landing.css">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <h1 class="navbar__logo">Calcular valor del peso argentino</h1>
+            <button class="navbar__toggle" aria-label="Abrir menú">
+                <span class="navbar__toggle-icon"></span>
+            </button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">Inicio</a></li>
+                <li class="navbar__item"><a href="inflacion.html" class="navbar__link">Calculadora de inflación</a></li>
+                <li class="navbar__item"><a href="comparar-precios.html" class="navbar__link">Comparar precios</a></li>
+                <li class="navbar__item"><a href="dolar-blue.html" class="navbar__link">Dólar paralelo</a></li>
+                <li class="navbar__item"><a href="dolar-oficial.html" class="navbar__link">Dólar oficial</a></li>
+                <li class="navbar__item"><a href="informacion.html" class="navbar__link">Información adicional</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← Volver al inicio</a>
+
+        <section id="comparar-precios" class="container__section">
+            <h2 class="section__title title--principal">Comparar 2 precios ajustados por inflación</h2>
+            <p class="section__description">
+                Es importante saber si un precio aumenta más o menos que la inflación. Cuando el aumento supera la inflación, el poder adquisitivo disminuye; si es menor, aumenta.
+                Utiliza la herramienta a continuación para saber la diferencia en términos reales (ajustada por inflación) entre 2 valores de distintas fechas.
+            </p>
+            <h3 class="section__title">Uso</h3>
+            <ol class="section__list">
+                <li>Ingresa el primer valor a comparar.</li>
+                <li>Ingresa la fecha a la que pertenece el primer valor (la inflación se toma al primer día del mes).</li>
+                <li>Ingresa el segundo valor a comparar.</li>
+                <li>Ingresa la fecha a la que pertenece el segundo valor (la inflación se toma al primer día del mes).</li>
+            </ol>
+            <form class="section__form">
+                <div class="form__line">
+                    <div class="form__group">
+                        <span class="form__addon">$</span>
+                        <input id="amount1" type="number" class="form__input" step="0.01" min="0">
+                    </div>
+                    <div class="form__group">
+                        <span class="form__addon">en</span>
+                        <select id="month1" class="form__select"></select>
+                        <span class="form__addon">de</span>
+                        <select id="year1" class="form__select"></select>
+                    </div>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Comparado a</span>
+                </div>
+                <div class="form__line">
+                    <div class="form__group">
+                        <span class="form__addon">$</span>
+                        <input id="amount2" type="number" class="form__input" step="0.01" min="0">
+                    </div>
+                    <div class="form__group">
+                        <span class="form__addon">en</span>
+                        <select id="month2" class="form__select"></select>
+                        <span class="form__addon">de</span>
+                        <select id="year2" class="form__select"></select>
+                    </div>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">El primer valor ajustado por inflación es</span>
+                    <span id="adjustedAmount" class="form__results"></span>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Diferencia del segundo valor frente al valor ajustado:</span>
+                    <span id="percentageDifference" class="form__results"></span>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="../js/app.js" type="module"></script>
+</body>
+</html>

@@ -33,22 +33,31 @@ export class MenuComponent {
     setupSmoothScroll() {
         this.navbarLinks.forEach(anchor => {
             anchor.addEventListener('click', (e) => {
-                e.preventDefault();
+                const href = anchor.getAttribute('href');
 
-                const targetId = anchor.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                // Solo aplicar scroll suave cuando el enlace sea a un ancla interna (#seccion)
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
 
-                if (targetElement) {
-                    const headerOffset = document.querySelector('.header').offsetHeight;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    const targetElement = document.querySelector(href);
 
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('.header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-                    // Cerrar el menú desplegable después de hacer clic (en móviles)
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Cerrar el menú desplegable después de hacer clic (en móviles)
+                        if (window.innerWidth <= 768) {
+                            this.navbarMenu.classList.remove('active');
+                        }
+                    }
+                } else {
+                    // Enlaces a otras páginas funcionan normalmente, solo cerramos el menú en móviles
                     if (window.innerWidth <= 768) {
                         this.navbarMenu.classList.remove('active');
                     }

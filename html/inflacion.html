@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflación y comparación de precios</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/landing.css">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <h1 class="navbar__logo">Calcular valor del peso argentino</h1>
+            <button class="navbar__toggle" aria-label="Abrir menú">
+                <span class="navbar__toggle-icon"></span>
+            </button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">Inicio</a></li>
+                <li class="navbar__item"><a href="inflacion.html" class="navbar__link">Calculadora de inflación</a></li>
+                <li class="navbar__item"><a href="comparar-precios.html" class="navbar__link">Comparar precios</a></li>
+                <li class="navbar__item"><a href="dolar-blue.html" class="navbar__link">Dólar paralelo</a></li>
+                <li class="navbar__item"><a href="dolar-oficial.html" class="navbar__link">Dólar oficial</a></li>
+                <li class="navbar__item"><a href="informacion.html" class="navbar__link">Información adicional</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← Volver al inicio</a>
+        <!-- Sección calculadora de inflación -->
+        <section id="calculadora-inflacion" class="container__section">
+            <h2 class="section__title title--principal">Calculadora de inflación histórica de Argentina</h2>
+            <p class="section__description">
+                La inflación afecta el valor del dinero a lo largo del tiempo, distorsionando los precios. 
+                Utiliza la calculadora a continuación para convertir precios entre cualquier mes desde enero de 1992 (cuando fue introducido el Peso) y el mes presente.
+            </p>
+            <h3 class="section__title">Uso</h3>
+            <ol class="section__list">
+                <li>Ingresar un valor inicial.</li>
+                <li>Ingresar fecha inicial (la inflación se toma al primer día del mes).</li>
+                <li>Ingresar fecha final (la inflación se toma al primer día del mes).</li>
+            </ol>
+            <form class="section__form">
+                <div class="form__line">
+                    <div class="form__group">
+                        <span class="form__addon">$</span>
+                        <input type="number" id="startAmount" class="form__input" step="0.01" min="0">
+                    </div>
+                    <div class="form__group">
+                        <span class="form__addon">en</span>
+                        <select id="startMonth" class="form__select"></select>
+                        <span class="form__addon">de</span>
+                        <select id="startYear" class="form__select"></select>
+                    </div>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Equivalen a</span>
+                </div>
+                <div class="form__line">
+                    <div class="form__group">
+                        <span class="form__addon">$</span>
+                        <input type="number" id="endAmount" class="form__input" readonly>
+                    </div>
+                    <div class="form__group">
+                        <span class="form__addon">en</span>
+                        <select id="endMonth" class="form__select"></select>
+                        <span class="form__addon">de</span>
+                        <select id="endYear" class="form__select"></select>
+                    </div>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Inflación acumulada = </span>
+                    <span id="accumulatedInflation" class="form__results"></span>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Promedio mensual = </span>
+                    <span id="averageMonthlyInflation" class="form__results"></span>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Promedio anual = </span>
+                    <span id="averageYearlyInflation" class="form__results"></span>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="../js/app.js" type="module"></script>
+</body>
+</html>

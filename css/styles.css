@@ -148,10 +148,9 @@ h3.section__title {
     line-height: 1.7;
 }
 
-/* Estilos de las listas */
-.section__list {
-    list-style-type: decimal;
-    padding-left: 1.5rem;
+.back-button {
+    display: inline-block;
+    margin-bottom: 1rem;
     margin-bottom: 1.5rem;
     color: var(--text-color);
 }

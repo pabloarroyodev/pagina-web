@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución del peso - Dólar oficial</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/landing.css">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <h1 class="navbar__logo">Calcular valor del peso argentino</h1>
+            <button class="navbar__toggle" aria-label="Abrir menú">
+                <span class="navbar__toggle-icon"></span>
+            </button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">Inicio</a></li>
+                <li class="navbar__item"><a href="inflacion.html" class="navbar__link">Calculadora de inflación</a></li>
+                <li class="navbar__item"><a href="comparar-precios.html" class="navbar__link">Comparar precios</a></li>
+                <li class="navbar__item"><a href="dolar-blue.html" class="navbar__link">Dólar paralelo</a></li>
+                <li class="navbar__item"><a href="dolar-oficial.html" class="navbar__link">Dólar oficial</a></li>
+                <li class="navbar__item"><a href="informacion.html" class="navbar__link">Información adicional</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← Volver al inicio</a>
+        <section id="evolucion-peso-oficial" class="container__section">
+            <h2 class="section__title title--principal">Evolución del peso con respecto al dólar oficial</h2>
+            <p class="section__description">
+                El cambio de cotización del peso frente al dólar afecta la inflación, los precios de productos importados, el poder adquisitivo, las inversiones y el ahorro.
+                Utiliza la herramienta a continuación para visualizar cómo ha evolucionado el valor del peso argentino en relación al dólar oficial a lo largo del tiempo.
+            </p>
+            <h3 class="section__title">Uso</h3>
+            <ol class="section__list">
+                <li>Ingresa un valor en pesos argentinos.</li>
+                <li>Ingresar fecha inicial (la cotización del dólar se toma al primer día del mes).</li>
+                <li>Ingresar fecha final (la cotización del dólar se toma al primer día del mes).</li>
+            </ol>
+            <form class="section__form">
+                <div class="form__line">
+                    <div class="form__group">
+                        <span class="form__addon">$</span>
+                        <input type="number" id="pesoAmountOfficial" class="form__input" step="0.01" min="0">
+                    </div>
+                </div>
+                <div class="form__line">
+                    <div class="form__group">
+                        <span class="form__addon">Fecha inicial:</span>
+                        <select id="dollarStartMonthOfficial" class="form__select"></select>
+                        <select id="dollarStartYearOfficial" class="form__select"></select>
+                    </div>
+                </div>
+                <div class="form__line">
+                    <div class="form__group">
+                        <span class="form__addon">Fecha final:</span>
+                        <select id="dollarEndMonthOfficial" class="form__select"></select>
+                        <select id="dollarEndYearOfficial" class="form__select"></select>
+                    </div>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Equivalencia en USD de fecha inicial:</span>
+                    <span id="startUsdEquivalentOfficial" class="form__results"></span>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Equivalencia en USD de fecha final:</span>
+                    <span id="endUsdEquivalentOfficial" class="form__results"></span>
+                </div>
+                <div class="form__line">
+                    <span class="form__addon">Variación porcentual:</span>
+                    <span id="exchangeVariationOfficial" class="form__results"></span>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="../js/app.js" type="module"></script>
+</body>
+</html>

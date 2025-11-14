@@ -30,12 +30,25 @@ class App {
             const dollarBlueService = await new DollarBlueService().init();
             const dollarOfficialService = await new DollarOfficialService().init();
             
-            // Inicializar componentes de calculadoras
-            const inflationCalculator = new InflationCalculatorComponent(inflationService);
-            const dollarBlueCalculator = new DollarCalculatorComponent(dollarBlueService);
-            const dollarOfficialCalculator = new DollarCalculatorComponent(dollarOfficialService, 'Official');
-            
-            this.components.push(inflationCalculator, dollarBlueCalculator, dollarOfficialCalculator);
+            // Inicializar componentes de calculadoras solo si existen los elementos correspondientes en la página
+
+            // Calculadoras de inflación (página inflacion.html)
+            if (document.getElementById('startAmount') || document.getElementById('amount1')) {
+                const inflationCalculator = new InflationCalculatorComponent(inflationService);
+                this.components.push(inflationCalculator);
+            }
+
+            // Calculadora dólar paralelo (página dolar-blue.html)
+            if (document.getElementById('pesoAmount')) {
+                const dollarBlueCalculator = new DollarCalculatorComponent(dollarBlueService);
+                this.components.push(dollarBlueCalculator);
+            }
+
+            // Calculadora dólar oficial (página dolar-oficial.html)
+            if (document.getElementById('pesoAmountOfficial')) {
+                const dollarOfficialCalculator = new DollarCalculatorComponent(dollarOfficialService, 'Official');
+                this.components.push(dollarOfficialCalculator);
+            }
             
             console.log('Aplicación inicializada correctamente.');
         } catch (error) {
