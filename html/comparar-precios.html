@@ -22,6 +22,16 @@
                 <li class="navbar__item"><a href="dolar-blue.html" class="navbar__link">Dólar paralelo</a></li>
                 <li class="navbar__item"><a href="dolar-oficial.html" class="navbar__link">Dólar oficial</a></li>
                 <li class="navbar__item"><a href="informacion.html" class="navbar__link">Información adicional</a></li>
+                <li class="navbar__item navbar__item--user">
+                    <button class="user-menu-toggle" aria-label="Menú de usuario">
+                        <span class="user-menu__icon"></span>
+                        <span class="user-menu__label">Usuario</span>
+                    </button>
+                    <ul class="user-menu">
+                        <li class="user-menu__item"><a href="../calculos.php" class="user-menu__link">Cálculos</a></li>
+                        <li class="user-menu__item"><a href="../logout.php" class="user-menu__link">Cerrar sesión</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -77,6 +87,11 @@
                 <div class="form__line">
                     <span class="form__addon">Diferencia del segundo valor frente al valor ajustado:</span>
                     <span id="percentageDifference" class="form__results"></span>
+                </div>
+                <div class="form__line">
+                    <button type="button" id="savePriceComparison" class="form__input" style="cursor:pointer;">
+                        Guardar cálculo
+                    </button>
                 </div>
             </form>
         </section>

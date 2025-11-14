@@ -40,7 +40,8 @@ class DataService {
  */
 export class InflationService extends DataService {
     constructor() {
-        super('../data/inflation-data.json');
+        // Ruta absoluta dentro del sitio para funcionar desde /pagina_artaza/ y /pagina_artaza/html/
+        super('/pagina_artaza/data/inflation-data.json');
     }
 
     /**
@@ -194,7 +195,8 @@ class DollarService extends DataService {
  */
 export class DollarBlueService extends DollarService {
     constructor() {
-        super('../data/dolarblue-data.json');
+        // Coincide con c:/xampp/htdocs/pagina_artaza/data/dolarblue-data.json
+        super('/pagina_artaza/data/dolarblue-data.json');
     }
 }
 
@@ -203,6 +205,7 @@ export class DollarBlueService extends DollarService {
  */
 export class DollarOfficialService extends DollarService {
     constructor() {
-        super('../data/dolaroficial-data.json');
+        // Coincide con c:/xampp/htdocs/pagina_artaza/data/dolaroficial-data.json
+        super('/pagina_artaza/data/dolaroficial-data.json');
     }
 }

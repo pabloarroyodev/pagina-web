@@ -85,6 +85,92 @@ body {
     gap: 1.5rem;
 }
 
+.navbar__item--user {
+    position: relative;
+}
+
+.user-menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    font: inherit;
+}
+
+.user-menu__icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.user-menu__icon::before,
+.user-menu__icon::after {
+    content: "";
+    position: absolute;
+    background-color: #fff;
+}
+
+.user-menu__icon::before {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    top: 5px;
+}
+
+.user-menu__icon::after {
+    width: 16px;
+    height: 8px;
+    border-radius: 10px 10px 0 0;
+    bottom: 4px;
+}
+
+.user-menu__label {
+    font-size: 0.95rem;
+}
+
+.user-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--primary-color);
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    min-width: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 4px 4px;
+    display: none;
+    z-index: 1100;
+}
+
+.user-menu__item {
+    padding: 0;
+}
+
+.user-menu__link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+}
+
+.user-menu__link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #f39c12;
+}
+
+.navbar__item--user.open .user-menu {
+    display: block;
+}
+
 .navbar__link {
     color: white;
     text-decoration: none;
@@ -263,6 +349,12 @@ a:hover {
 
     .navbar__item {
         margin: 0.5rem 0;
+    }
+
+    .user-menu {
+        position: static;
+        box-shadow: none;
+        min-width: 0;
     }
 
     .container__section {

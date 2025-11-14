@@ -23,6 +23,10 @@ export class DollarCalculatorComponent {
         this.endUsdEquivalent = document.getElementById(`endUsdEquivalent${prefix}`);
         this.exchangeVariation = document.getElementById(`exchangeVariation${prefix}`);
 
+        // Botón para guardar el cálculo y último cálculo realizado
+        this.saveDollarButton = document.getElementById(`saveDollarCalculation${prefix}`);
+        this.lastDollarCalculation = null;
+
         this.init();
     }
 
@@ -61,6 +65,10 @@ export class DollarCalculatorComponent {
         this.startMonth.addEventListener('change', () => this.calculate());
         this.endYear.addEventListener('change', () => this.calculate());
         this.endMonth.addEventListener('change', () => this.calculate());
+
+        if (this.saveDollarButton) {
+            this.saveDollarButton.addEventListener('click', () => this.saveDollarCalculation());
+        }
     }
 
     /**
@@ -119,8 +127,51 @@ export class DollarCalculatorComponent {
             } else {
                 this.exchangeVariation.classList.remove('positive', 'negative');
             }
+
+            // Guardar el último cálculo para poder enviarlo al servidor
+            this.lastDollarCalculation = {
+                pesoAmount,
+                startYear,
+                startMonth,
+                endYear,
+                endMonth,
+                startUsdEquivalent: result.startUsdEquivalent,
+                endUsdEquivalent: result.endUsdEquivalent,
+                percentageChange: result.percentageChange,
+                dollarType: this.prefix === 'Official' ? 'official' : 'blue'
+            };
         } catch (error) {
             this.displayError(error.message);
+        }
+    }
+
+    /**
+     * Envía el último cálculo de dólar al servidor para guardarlo
+     */
+    async saveDollarCalculation() {
+        if (!this.lastDollarCalculation) {
+            alert('Primero realizá un cálculo para poder guardarlo.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/pagina_artaza/guardar_dolar.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.lastDollarCalculation)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'No se pudo guardar el cálculo de dólar');
+            }
+
+            alert('Cálculo de dólar guardado correctamente.');
+        } catch (error) {
+            alert(error.message || 'Ocurrió un error al guardar el cálculo de dólar.');
         }
     }
 

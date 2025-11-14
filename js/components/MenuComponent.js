@@ -6,6 +6,8 @@ export class MenuComponent {
         this.navbarToggle = document.querySelector('.navbar__toggle');
         this.navbarMenu = document.querySelector('.navbar__menu');
         this.navbarLinks = document.querySelectorAll('.navbar__link');
+        this.userMenuToggle = document.querySelector('.user-menu-toggle');
+        this.userMenuItem = document.querySelector('.navbar__item--user');
         
         this.init();
     }
@@ -16,6 +18,7 @@ export class MenuComponent {
     init() {
         this.setupToggle();
         this.setupSmoothScroll();
+        this.setupUserMenu();
     }
 
     /**
@@ -63,6 +66,32 @@ export class MenuComponent {
                     }
                 }
             });
+        });
+    }
+
+    /**
+     * Configura el menú de usuario desplegable
+     */
+    setupUserMenu() {
+        if (!this.userMenuToggle || !this.userMenuItem) {
+            return;
+        }
+
+        // Abrir/cerrar el menú al hacer clic en el icono/etiqueta de usuario
+        this.userMenuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            this.userMenuItem.classList.toggle('open');
+        });
+
+        // Cerrar el menú si se hace clic fuera
+        document.addEventListener('click', (event) => {
+            if (!this.userMenuItem.classList.contains('open')) {
+                return;
+            }
+
+            if (!this.userMenuItem.contains(event.target)) {
+                this.userMenuItem.classList.remove('open');
+            }
         });
     }
 }

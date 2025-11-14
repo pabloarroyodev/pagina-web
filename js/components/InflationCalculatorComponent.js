@@ -22,6 +22,12 @@ export class InflationCalculatorComponent {
         this.averageMonthlyInflation = document.getElementById('averageMonthlyInflation');
         this.averageYearlyInflation = document.getElementById('averageYearlyInflation');
 
+        // Botón para guardar el cálculo de inflación
+        this.saveInflationButton = document.getElementById('saveInflationCalculation');
+
+        // Último cálculo realizado (para poder guardarlo)
+        this.lastInflationCalculation = null;
+
         // Elementos de la segunda calculadora (comparar precios)
         this.amount1 = document.getElementById('amount1');
         this.month1 = document.getElementById('month1');
@@ -32,7 +38,41 @@ export class InflationCalculatorComponent {
         this.adjustedAmount = document.getElementById('adjustedAmount');
         this.percentageDifference = document.getElementById('percentageDifference');
 
+        // Botón y último cálculo para comparación de precios
+        this.savePriceComparisonButton = document.getElementById('savePriceComparison');
+        this.lastPriceComparison = null;
+
         this.init();
+    }
+
+    /**
+     * Envía el último cálculo de comparación de precios al servidor para guardarlo
+     */
+    async savePriceComparison() {
+        if (!this.lastPriceComparison) {
+            alert('Primero realizá una comparación para poder guardarla.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/pagina_artaza/guardar_comparacion.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.lastPriceComparison)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'No se pudo guardar el cálculo de comparación');
+            }
+
+            alert('Cálculo de comparación guardado correctamente.');
+        } catch (error) {
+            alert(error.message || 'Ocurrió un error al guardar la comparación.');
+        }
     }
 
     /**
@@ -110,6 +150,16 @@ export class InflationCalculatorComponent {
             this.year2.addEventListener('change', () => this.compareValues());
             this.month2.addEventListener('change', () => this.compareValues());
         }
+
+        // Botón para guardar el cálculo de inflación
+        if (this.saveInflationButton) {
+            this.saveInflationButton.addEventListener('click', () => this.saveInflationCalculation());
+        }
+
+        // Botón para guardar la comparación de precios
+        if (this.savePriceComparisonButton) {
+            this.savePriceComparisonButton.addEventListener('click', () => this.savePriceComparison());
+        }
     }
 
     /**
@@ -157,8 +207,54 @@ export class InflationCalculatorComponent {
             this.accumulatedInflation.textContent = inflationResult.accumulatedInflation.toFixed(2) + '%';
             this.averageMonthlyInflation.textContent = inflationResult.averageMonthlyInflation.toFixed(2) + '%';
             this.averageYearlyInflation.textContent = inflationResult.averageYearlyInflation.toFixed(2) + '%';
+
+            // Guardar el último cálculo para poder enviarlo al servidor
+            this.lastInflationCalculation = {
+                startAmount,
+                startYear,
+                startMonth,
+                endYear,
+                endMonth,
+                endAmount: parseFloat(this.endAmount.value),
+                accumulatedInflation: inflationResult.accumulatedInflation,
+                averageMonthlyInflation: inflationResult.averageMonthlyInflation,
+                averageYearlyInflation: inflationResult.averageYearlyInflation
+            };
         } catch (error) {
             this.displayError(error.message);
+        }
+    }
+
+    /**
+     * Envía el último cálculo de inflación al servidor para guardarlo
+     */
+    async saveInflationCalculation() {
+        if (!this.lastInflationCalculation) {
+            alert('Primero realizá un cálculo para poder guardarlo.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/pagina_artaza/guardar_calculo.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'inflation',
+                    ...this.lastInflationCalculation
+                })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'No se pudo guardar el cálculo');
+            }
+
+            alert('Cálculo guardado correctamente.');
+        } catch (error) {
+            alert(error.message || 'Ocurrió un error al guardar el cálculo.');
         }
     }
 
@@ -221,6 +317,18 @@ export class InflationCalculatorComponent {
             } else {
                 this.percentageDifference.classList.remove('positive', 'negative');
             }
+
+            // Guardar último cálculo de comparación para poder enviarlo al servidor
+            this.lastPriceComparison = {
+                amount1,
+                year1,
+                month1,
+                amount2,
+                year2,
+                month2,
+                adjustedAmount,
+                percentageDifference
+            };
         } catch (error) {
             this.displayCompareError(error.message);
         }
